@@ -29,7 +29,8 @@ ShortLink 将长网址转换为可分享的短链接，并提供分组管理、�
 
 ### 1. 初始化数据库和中间件
 
-连接 MySQL，将 [建表脚本](resources/database/link.sql) 导入 **link** 库。首次运行可以直接注册用户，[示例数据](resources/database/link-data.sql) 无需导入。
+连接 MySQL，将 [建表脚本](resources/database/link.sql) 导入 **link** 库。在控制台注册用户即可开始使用。
+
 
 ~~~powershell
 mysql -u root -p -e "CREATE DATABASE IF NOT EXISTS link CHARACTER SET utf8mb4;"
@@ -100,3 +101,6 @@ npm run dev
 
 公开跳转入口为 **GET /{shortUri}**，直接使用生成的完整短链访问，无需登录。
 
+## 延伸阅读与许可证
+
+- [Apache License 2.0](LICENSE)。项目基于拿个 offer 社群的 SaaS 短链接项目。

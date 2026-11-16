@@ -1,0 +1,71 @@
+server:
+  port: 8003
+
+spring:
+  application:
+    name: short-link-aggregation
+  data:
+    redis:
+      host: 127.0.0.1
+      port: 6379
+  mvc:
+    view:
+      prefix: /templates/
+      suffix: .html
+rocketmq:
+  name-server: ${ROCKETMQ_NAME_SERVER:127.0.0.1:9876}
+  producer:
+    group: ${ROCKETMQ_STATS_PRODUCER_GROUP:short-link-stats-producer}
+    send-message-timeout: 3000
+short-link:
+  group:
+    max-num: 20
+  flow-limit:
+    enable: false
+    time-window: 1
+    max-access-count: 20
+  domain:
+    default: ${SHORT_LINK_DOMAIN:nurl.ink:8003}
+  demo-mode:
+    enable: false
+    blacklist:
+      - /api/short-link/admin/v1/group
+      - /api/short-link/admin/v1/recycle-bin/remove
+      - /api/short-link/admin/v1/create
+      - /api/short-link/admin/v1/create/batch
+      - /api/short-link/admin/v1/update
+      - /api/short-link/admin/v1/user
+      - /api/short-link/admin/v1/user/logout
+      - /api/short-link/admin/v1/recycle-bin/save
+  stats:
+    mq:
+      type: rocketmq
+      topic: short-link-stats
+      tag: access
+      consumer-group: short-link-stats-consumer
+      send-timeout: 3000
+    locale:
+      amap-key: ${AMAP_KEY:}
+  goto-domain:
+    white-list:
+      enable: false
+      names: '拿个offer,知乎,掘金,博客园'
+      details:
+        - nageoffer.com
+        - zhihu.com
+        - juejin.cn
+        - cnblogs.com
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  mapper-locations: classpath:mapper/*.xml
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  metrics:
+    tags:
+      application: ${spring.application.name}
