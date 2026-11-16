@@ -100,7 +100,3 @@ npm run dev
 
 公开跳转入口为 **GET /{shortUri}**，直接使用生成的完整短链访问，无需登录。
 
-## 延伸阅读与许可证
-
-- [架构升级设计](docs/ownership/01-upgrade-design.md)：了解聚合部署与访问统计链路的设计背景。
-- [Apache License 2.0](LICENSE)。项目基于拿个 offer 社群的 SaaS 短链接项目。
